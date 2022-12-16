@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { APIC } from "../Config/ApiUrl";
 import swal from "sweetalert";
 import Menu from "../Menu/Menu";
@@ -39,7 +39,7 @@ const ListarProductos = () => {
           });
 
           swal("Registro elimindo", eliminar.data.message, "success");
-          traerCuentas();
+          traerProductos();
         } catch (error) {
           swal("Acceso No Autorizado", JSON.parse(error.request), "error");
         }
@@ -58,6 +58,7 @@ const ListarProductos = () => {
         <table className="table">
           <thead className="table-primary">
             <tr>
+              <th>Producto</th>
               <th>Fecha</th>
               <th>Existencia</th>
               <th>Usuario</th>
@@ -65,26 +66,28 @@ const ListarProductos = () => {
             </tr>
           </thead>
           <tbody>
-            {producto.map((producto) => (
-              <tr key={producto.id}>
-                <td>{producto.fechaApertura.substring(0, 10)}</td>
-                <td>{producto.existenciaProducto}</td>
-                <td>
-                  {producto.usuario.nombreUsuario +
+            {productos.map((productos) => (
+              <tr key={productos.id}>
+                <td>{productos.producto}</td>
+                <td>{productos.fecha}</td>
+                <td>{productos.existenciaProducto}</td>
+                <td>{productos.userName}</td>
+                {/* <td>
+                  {productos.usuario.nombreUsuario +
                     " " +
-                    producto.usuario.apellidoCliente}
-                </td>
+                    productos.usuario.apellidoUsuario}
+                </td> */}
                 <td>
                   {" "}
                   <Link
                     className="btn btn-outline-danger"
-                    onClick={() => eliminarProducto(producto.id)}
+                    onClick={() => eliminarProducto(productos.id)}
                   >
                     <i className="fa-solid fa-trash-can"></i>
                   </Link>{" "}
                   <Link
                     className="btn btn-outline-info"
-                    to={`/editarProducto/${producto.id}`}
+                    to={`/editarProducto/${productos.id}`}
                   >
                     <i className="fa-solid fa-user-pen"></i>
                   </Link>

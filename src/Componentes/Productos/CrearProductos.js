@@ -1,6 +1,6 @@
 import Menu from "../Menu/Menu";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { APIC, API } from "../Config/ApiUrl";
 import swal from "sweetalert";
 import axios from "axios";
@@ -12,7 +12,8 @@ const headers = {
   key: sessionStorage.getItem("key"),
 };
 const CrearProducto = () => {
-  const [fecha, setFecha] = useState("");
+  const [fecha, setFecha] = useState();
+  const [producto, setnombreProducto] = useState("");
   const [existencia, setExistencia] = useState(0);
   const [usuarios, setUsuarios] = useState("");
   const [usuario, setUsuario] = useState([]);
@@ -30,6 +31,7 @@ const CrearProducto = () => {
           method: "POST",
           url: URL,
           data: {
+            producto:producto,
             fechaApertura: fecha,
             existenciaProducto: existencia,
             usuario: {
@@ -43,7 +45,7 @@ const CrearProducto = () => {
           "Producto Creada con id " + crearProducto.data.id,
           "success"
         ).then((value) => {
-          navigate("/producto");
+          navigate("/productos");
         });
       } catch (error) {
         swal("Productos", "Error al crear el producto", "error");
@@ -51,7 +53,7 @@ const CrearProducto = () => {
     }
   };
 
-  const traerProductos = async () => {
+  const traerUsuarios = async () => {
     try {
       const usuarios = await axios({
         method: "GET",
@@ -67,6 +69,15 @@ const CrearProducto = () => {
       <div className="container col-5">
         <h3>Creando producto</h3>
         <form onSubmit={crear}>
+        <div className="mb-3">
+            <label className="form-label">Producto </label>{" "}
+            <input
+              className="form-control"
+              type="text"
+              value={producto}
+              onChange={(e) => setnombreProducto(e.target.value)}
+            ></input>
+          </div>
           <div>
             <label className="form-label">Fecha</label>
             <input
@@ -85,13 +96,12 @@ const CrearProducto = () => {
             <label className="form-label">Existencia</label>
             <input
               className="form-control"
-              value={saldo}
+              value={existencia}
               onChange={(e) => setExistencia(e.target.value)}
               type="number"
               min={0}
             ></input>
           </div>
-
           <div>
             <label className="form-label">Usuario</label>
             <select

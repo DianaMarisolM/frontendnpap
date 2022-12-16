@@ -132,7 +132,7 @@ const CrearUsuario = () => {
               type="checkbox"
               value="logist"
             />{" "}
-            <label className="form-check-label">Casher</label>
+            <label className="form-check-label">Logist</label>
           </div>
 
           <button type="submit" className="btn btn-outline-primary">

@@ -53,15 +53,15 @@ const Menu = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
             {props.name==="usuario"?(<Link className="navbar-brand btn btn-primary" to="/usuario">
-              Usuario
+              Acciones
             </Link>):(<Link className="navbar-brand" to="/usuario">
-              Usuario
+              Acciones
             </Link>)}
 
-            {props.name==="producto"?(<Link className="navbar-brand btn btn-primary" to="/producto">
-              Producto
-            </Link>):(<Link className="navbar-brand" to="/producto">
-              Producto
+            {props.name==="producto"?(<Link className="navbar-brand btn btn-primary" to="/productos">
+              Productos
+            </Link>):(<Link className="navbar-brand" to="/productos">
+              Productos
             </Link>)}
             
            
