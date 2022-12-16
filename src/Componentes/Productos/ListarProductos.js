@@ -19,6 +19,7 @@ const ListarProductos = () => {
         method: "GET",
         url: URL,
       });
+      console.log(productos.data);
       setProductos(productos.data);
     } catch (error) {}
   };
@@ -52,7 +53,7 @@ const ListarProductos = () => {
     <>
       <Menu name="productos" />
       <div className="container">
-        <Link className="btn btn-outline-primary" to={`/crearProducto`}>
+        <Link className="btn btn-outline-primary" to={`/crearProducto`}>CrearProducto
         <i className="fa-solid fa-sack-dollar"></i>
         </Link>
         <table className="table">
@@ -68,10 +69,10 @@ const ListarProductos = () => {
           <tbody>
             {productos.map((productos) => (
               <tr key={productos.id}>
-                <td>{productos.producto}</td>
-                <td>{productos.fecha}</td>
+                <td>{productos.descripcion}</td>
+                <td>{productos.fechaCreacion}</td>
                 <td>{productos.existenciaProducto}</td>
-                <td>{productos.userName}</td>
+                <td>{productos.usuario.userName}</td>
                 {/* <td>
                   {productos.usuario.nombreUsuario +
                     " " +

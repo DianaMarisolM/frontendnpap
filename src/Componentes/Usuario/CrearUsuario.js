@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { API } from "../Config/ApiUrl";
 import swal from "sweetalert";
 import axios from "axios";
-const URL = API("/create") ;
+const URL = API("create") ;
 const CrearUsuario = () => {
   const navigate = useNavigate();
   const [nombreUsuario, setnombreUsuario] = useState("");
@@ -130,7 +130,7 @@ const CrearUsuario = () => {
             <input
               className="form-check-input role"
               type="checkbox"
-              value="logist"
+              value="cash"
             />{" "}
             <label className="form-check-label">Logist</label>
           </div>

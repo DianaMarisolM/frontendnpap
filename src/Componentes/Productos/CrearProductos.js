@@ -1,6 +1,6 @@
 import Menu from "../Menu/Menu";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import {Link,  useNavigate } from "react-router-dom";
 import { APIC, API } from "../Config/ApiUrl";
 import swal from "sweetalert";
 import axios from "axios";
@@ -15,15 +15,15 @@ const CrearProducto = () => {
   const [fecha, setFecha] = useState();
   const [producto, setnombreProducto] = useState("");
   const [existencia, setExistencia] = useState(0);
-  const [usuarios, setUsuarios] = useState("");
-  const [usuario, setUsuario] = useState([]);
+  const [Usuarios, setUsuarios] = useState("");
+  const [Usuario, setUsuario] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     traerUsuarios();
   }, []);
 
   const crear = async () => {
-    if (usuario === "") {
+    if (Usuario === "") {
       swal("Productos", "Debe seleccionar un producto", "error");
     } else {
       try {
@@ -35,11 +35,11 @@ const CrearProducto = () => {
             fechaApertura: fecha,
             existenciaProducto: existencia,
             usuario: {
-              idUsuario: usuario,
+              idUsuario: Usuario,
             },
           },
         });
-
+        console.log(crearProducto.data);
         swal(
           "Productos",
           "Producto Creada con id " + crearProducto.data.id,
@@ -55,12 +55,12 @@ const CrearProducto = () => {
 
   const traerUsuarios = async () => {
     try {
-      const usuarios = await axios({
+      const Usuarios = await axios({
         method: "GET",
         url: URLC,
         headers: headers,
       });
-      setUsuarios(usuarios.data);
+      setUsuario(Usuarios.data);
     } catch (error) {}
   };
   return (
@@ -70,7 +70,7 @@ const CrearProducto = () => {
         <h3>Creando producto</h3>
         <form onSubmit={crear}>
         <div className="mb-3">
-            <label className="form-label">Producto </label>{" "}
+            <label className="form-label">Producto</label>{" "}
             <input
               className="form-control"
               type="text"
@@ -106,22 +106,23 @@ const CrearProducto = () => {
             <label className="form-label">Usuario</label>
             <select
               className="form-control"
-              value={usuario}
+              value={Usuario}
               type="text"
-              onChange={(e) => setUsuario(e.target.value)}
+              onChange={(e) => setUsuarios(e.target.value)}
               required
             >
               <option>Seleccione un usuario</option>
-              {usuarios.map((usuario) => (
+              {Usuario.map((usuario) => (
                 <option value={usuario.idUsuario} key={usuario.idUsuario}>
                   {usuario.nombreUsuario + " " + usuario.apellidoUsuario}
                 </option>
               ))}
-            </select>
+              </select> 
           </div>
-          <button type="submit" className="btn btn-outline-primay">
-            Guardar
+          <button type="submit" className="btn btn-outline-primay">Crear Producto
           </button>
+          {" "}
+          <Link className="btn btn-outline-primary" to="/productos">Regresar</Link>
         </form>
       </div>
     </>
